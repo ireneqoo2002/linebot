@@ -1,6 +1,6 @@
 from line_bot_api import *
 from events.basic import *
-
+from events.oil import *
 
 app=Flask(__name__)
 
@@ -25,8 +25,17 @@ def callback():
 def handle_messahe(event):
      message_text = str(event.message.text).lower()
 
+     #################################################
+
      if message_text =='@使用說明':
          about_us_event(event)
+
+     if event.message.text =="想知道油價":
+         content = oil_price()
+         line_bot_api.reply_message(
+             event.reply_token,
+             TextSendMessage(text=content)
+         )
      if message_text =='@小幫手':
          Usage(event)
      if event.message.text =="@小幫手":
