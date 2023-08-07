@@ -50,7 +50,8 @@ def handle_messahe(event):
                     text='股價查詢'
                 )
             ]
-        )
+            )
     )
+        line_bot_api.reply_message(event.reply_token,buttons_template)
 if __name__=="__main__":
     app.run()
