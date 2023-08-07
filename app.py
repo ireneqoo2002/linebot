@@ -27,6 +27,8 @@ def handle_messahe(event):
 
      if message_text =='@使用說明':
          about_us_event(event)
+     if message_text =='@小幫手':
+         Usage(event)
 
 if __name__=="__main__":
     app.run()
