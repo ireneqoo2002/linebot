@@ -37,6 +37,7 @@ def push_msg(event,msg):
 
 def Usage(event):
     push_msg(event,"     查詢方法     \
+                    \n\
                     \n小幫手可以查詢油價、匯率、股價\
                     \n\
                     \n 油價通知→→→輸入查詢油價\
