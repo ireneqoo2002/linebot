@@ -23,6 +23,8 @@ def callback():
 
 @handler.add(MessageEvent,message=TextMessage)
 def handle_messahe(event):
+     profile=line_bot_api.get_profile(event.source.user_id)
+     uid=profile.user_id
      message_text = str(event.message.text).lower()
 
      #################################################
@@ -36,6 +38,10 @@ def handle_messahe(event):
              event.reply_token,
              TextSendMessage(text=content)
          )
+    ##################################################
+     if event.message.text=="股價查詢":
+        line_bot_api.push_message(uid,TextSendMessage("請輸入#加股票代號......"))
+
      if message_text =='@小幫手':
          Usage(event)
      if event.message.text =="@小幫手":
