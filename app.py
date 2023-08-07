@@ -28,17 +28,16 @@ def callback():
 def handle_message(event):
     #message=TextSendMessage(text=event.message.text)
     #line_bot_api.reply_message(event.reply_token,message)
-    
     emoji = [
         {
             "index":0,
-            "productId": "5ac1bfd5040ab15980c9b435"
-            "emojiId":"009"
+            "productId": "5ac1bfd5040ab15980c9b435",
+            "emojiId": "009"
         },
         {
-            "index":17,
-            "productId": "5ac2211e031a6752fb806d61"
-            "emojiId":"003"
+            "index":6,
+            "productId": "5ac2211e031a6752fb806d61",
+            "emojiId": "003"
         }
     ]
 
@@ -46,7 +45,7 @@ def handle_message(event):
 Hello! 您好，這是一個分析股票、油價的頻道！''',emojis=emoji)
 
     sticker_message = StickerMessage(
-        package_id='8522'
+        package_id='8522',
         sticker_id='16581271'
     )
     line_bot_api.reply_message(
