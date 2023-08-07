@@ -10,7 +10,7 @@ def about_us_event(event):
             "emojiId": "009"
         },
         {
-            "index":6,
+            "index":16,
             "productId": "5ac2211e031a6752fb806d61",
             "emojiId": "003"
         }
