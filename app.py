@@ -64,7 +64,22 @@ def handle_messahe(event):
         line_bot_api.reply_message(
             event.reply_token,
             [buttons_template])
+#################################################
 
+@handler.add(FollowEvent)
+def handle_unfollow(event):
+    welcome_msg = """HEllO,歡迎您成為分析趨勢的好友!
+-我這裡有股票、匯率的資訊
+-直接點選下方選單功能使用"""
+
+    line_bot_api.replay_message(
+        event.reply_token,
+        TextSendMessage(text=welcome_msg))
+    
+
+@handler.add(FollowEvent)
+def handle_unfollow(event):
+    print(event)
 
 if __name__=="__main__":
     app.run()
