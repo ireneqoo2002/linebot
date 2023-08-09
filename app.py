@@ -41,7 +41,7 @@ def handle_messahe(event):
          about_us_event(event)
 
     #油價################################################
-     if event.message.text =="油價":
+     if event.message.text =="油價查詢":
          content = oil_price()
          line_bot_api.reply_message(
              event.reply_token,
@@ -95,6 +95,10 @@ def handle_messahe(event):
             event.reply_token, 
             TextSendMessage(text=content)
         )
+    #匯率################################################
+     if re.match('幣別種類',emsg):
+         message=show_Button()
+         line_bot_api.reply_message(event.reply_token,message)
     #股價################################################
      if message_text =='@小幫手':
          Usage(event)
