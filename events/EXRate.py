@@ -38,7 +38,7 @@ def getExchangeRate(msg):
     url_coinbase = 'https://api.coinbase.com/v2/exchange-rates?currency=' + currency
     res=requests.get(url_coinbase)
     jData=res.json()
-    pd_currency = jData['Data']['rates']
+    pd_currency = jData['data']['rates']
     content=f'目前的兌換率為:{pd_currency[currency1]}{currency1} \n查詢的金額為: '
     amount = float(pd_currency[currency1])
     content+=str('%.2f'%(amount*float(monet_value)))+" "+currency1
