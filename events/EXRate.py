@@ -1,3 +1,5 @@
+from line_bot_api import *
+import requests 
 def getCurrencyName(currency):
     currency_list = { 
         "USD" : "美元",
