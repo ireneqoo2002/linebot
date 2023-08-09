@@ -5,7 +5,7 @@ stockDB='mydb'
 dbname='howard-good31'
 
 def constructor_stock():
-    client =MongoClient("mongodb://ireneqoo2001:<password>@ac-7nkdh3b-shard-00-00.cnt92ox.mongodb.net:27017,ac-7nkdh3b-shard-00-01.cnt92ox.mongodb.net:27017,ac-7nkdh3b-shard-00-02.cnt92ox.mongodb.net:27017/?ssl=true&replicaSet=atlas-ovhscf-shard-0&authSource=admin&retryWrites=true&w=majority")
+    client =MongoClient("mongodb://ireneqoo2001:xilen0932508565@ac-7nkdh3b-shard-00-00.cnt92ox.mongodb.net:27017,ac-7nkdh3b-shard-00-01.cnt92ox.mongodb.net:27017,ac-7nkdh3b-shard-00-02.cnt92ox.mongodb.net:27017/?ssl=true&replicaSet=atlas-ovhscf-shard-0&authSource=admin&retryWrites=true&w=majority")
     db=client[stockDB]
     return db
 #-----------------更新暫存的股票
