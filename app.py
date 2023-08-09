@@ -107,11 +107,11 @@ def handle_messahe(event):
          line_bot_api.push_message(uid,TextSendMessage(content))
 
          ################################################
-     if message_text =='@小兔手':
+     if message_text =='@小幫手':
          Usage(event)
-     if event.message.text =="@小兔手":
+     if event.message.text =="@小幫手":
         buttons_template =TemplateSendMessage(
-            alt_text='小兔手 template',
+            alt_text='小幫手 template',
             template=ButtonsTemplate(
                 title='選擇服務',
                 text='請選擇',
