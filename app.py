@@ -1,6 +1,7 @@
 from line_bot_api import *
 from events.basic import *
 from events.oil import *
+from events.EXRate import *
 from events.Msg_Template import *
 from model.mongodb import *
 import re
@@ -99,12 +100,18 @@ def handle_messahe(event):
      if re.match('幣別種類',emsg):
          message=show_Button()
          line_bot_api.reply_message(event.reply_token,message)
-    #股價################################################
-     if message_text =='@小幫手':
+
+     if re.match("換匯[A-Z]{3}/[A-Z{3}]",msg):
+         line_bot_api.push_message(event.reply_token,message)
+         content=getExchangeRate(msg)
+         line_bot_api.push_message(uid,TextSendMessage(content))
+
+         ################################################
+     if message_text =='@小兔手':
          Usage(event)
-     if event.message.text =="@小幫手":
+     if event.message.text =="@小兔手":
         buttons_template =TemplateSendMessage(
-            alt_text='小幫手 template',
+            alt_text='小兔手 template',
             template=ButtonsTemplate(
                 title='選擇服務',
                 text='請選擇',
