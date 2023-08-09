@@ -328,7 +328,7 @@ def show_Button():
         ]
       }
     ],
-    "background": {
+    "background": { 
       "type": "linearGradient",
       "angle": "0deg",
       "endColor": "#FEEEED",
