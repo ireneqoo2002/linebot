@@ -25,7 +25,6 @@ def cache_users_stock():
 def callback():
     signature=request.headers['X-Line-Signature']
 
-
     body=request.get_data(as_text=True)
     app.logger.info("Request body: "+body)
 
@@ -145,7 +144,7 @@ def handle_messahe(event):
         def look_stock_price(stock, condition, price, userID):
             print(userID)
             url = 'https://tw.stock.yahoo.com/q/q?S=' + stock
-            list_req = request.get(url)
+            list_req = requests.get(url)
             soup = BeautifulSoup(list_req.content, 'html.parser')
             getstock = soup.findAll('b')[1].text
             content = stock + '當前股市價格為:' + getstock
@@ -219,7 +218,7 @@ def handle_unfollow(event):
 -我這裡有股票、匯率的資訊
 -直接點選下方選單功能使用"""
 
-    line_bot_api.replay_message(
+    line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=welcome_msg))
     
