@@ -60,9 +60,15 @@ def handle_messahe(event):
     #新增使用者關注的股票到mongodb  
      if re.match("關注[0-9]{4}[<>][0-9]", msg):
         stockNumber = msg[2:6]
-        content = write_my_stock(uid, user_name,stockNumber,msg[6:7],msg[7:])
+        line_bot_api.push_message(uid,TextSendMessage("加入股票代號"+stockNumber))
+        content = write_my_stock(uid, user_name, stockNumber,msg[6:7],msg[7:])
         line_bot_api.push_message(uid, TextSendMessage(content)) 
         return 0
+    #查詢股票篩選條件清單 
+     if re.match('股票清單',msg):
+         line_bot_api.push_message(uid,TextSendMessage("稍等一下，股票查詢中..."))
+         content = show_stock_setting(user_name, uid)
+         line_bot_api.push_message(uid,TextSendMessage(content))
      if (emsg.startswith('#')):
         text = emsg[1:]
         content =''
@@ -99,6 +105,11 @@ def handle_messahe(event):
     #匯率################################################
      if re.match('幣別種類',emsg):
          message=show_Button()
+         line_bot_api.reply_message(event.reply_token,message)
+        
+     if re.match('查詢匯率[A-Z]{3}',msg):
+         msg=msg[4:]
+         content=showCurrency(msg)
          line_bot_api.reply_message(event.reply_token,message)
 
      if re.match("換匯[A-Z]{3}/[A-Z{3}]",msg):
