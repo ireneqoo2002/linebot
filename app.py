@@ -166,6 +166,7 @@ def handle_messahe(event):
                     line_bot_api.push_message(userID, TextSendMessage(text = content))
         def job():
             print('HH')
+            line_bot_api.push_message(uid,TextSendMessage("買啦買啦買啦"))
             dataList = cache_users_stock()
             #print(dataLit)
             for i in range(len(dataList)):
