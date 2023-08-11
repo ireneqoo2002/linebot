@@ -10,7 +10,15 @@ import datetime
 
 app=Flask(__name__)
 
-
+#抓使用者設定他關心的股票
+def canhe_users_stock():
+    db=constructor_stock()
+    nameList = db._list_collections_names()
+    users = []
+    for i in range(len(nameList)):
+        collect = db[nameList[i]]
+        cel = list(collect.find({"tag":'stock'}))
+        users.append(cel)
 @app.route("/callback",methods=['POST'])
 def callback():
     signature=request.headers['X-Line-Signature']
