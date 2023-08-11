@@ -69,10 +69,21 @@ def handle_messahe(event):
          line_bot_api.push_message(uid,TextSendMessage("稍等一下，股票查詢中..."))
          content = show_stock_setting(user_name, uid)
          line_bot_api.push_message(uid,TextSendMessage(content))
+         return 0
+    #刪除存在資料庫裏面的股票
+     if re.match('刪除[0-9]{4}',msg):
+        content=delete_my_stock(user_name,msg[2:])
+        line_bot_api.push_message(uid,TextSendMessage(content))
+        return 0
+    #清空存在資料庫裏面的股票
+     if re.match('清空股票',msg):
+        content=delete_my_allstock(user_name,uid)
+        line_bot_api.push_message(uid,TextSendMessage(content))
+        return 0
+        
      if (emsg.startswith('#')):
-        text = emsg[1:]
+        text = msg[1:]
         content =''
-
         stock_rt = twstock.realtime.get(text)
         my_datetime = datetime.datetime.fromtimestamp(stock_rt['timestamp']+8*60*60)
         my_time = my_datetime.strftime('%H:%M:%S')
