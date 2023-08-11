@@ -11,7 +11,7 @@ import datetime
 app=Flask(__name__)
 
 #抓使用者設定他關心的股票
-def canhe_users_stock():
+def cache_users_stock():
     db=constructor_stock()
     nameList = db._list_collections_names()
     users = []
@@ -19,6 +19,8 @@ def canhe_users_stock():
         collect = db[nameList[i]]
         cel = list(collect.find({"tag":'stock'}))
         users.append(cel)
+    return users
+
 @app.route("/callback",methods=['POST'])
 def callback():
     signature=request.headers['X-Line-Signature']
@@ -135,8 +137,45 @@ def handle_messahe(event):
          line_bot_api.push_message(uid , TextSendMessage("將為您的外匯做計算"))
          content=getExchangeRate(msg)
          line_bot_api.push_message(uid,TextSendMessage(content))
+#股價提醒#################################################
+     if re.match("股價提醒",msg):
+        import schedule
+        import time
+        #查看當前股價
+        def look_stock_price(stock,condition,price,userID):
+            print(userID)
+            url = 'https://tw.stock.yahoo.com/q/q?s=' + stock
+            list_req = requests.get(url)
+            soup=BeautifulSoup(list_req.content,'html.parser')
+            getstock = soup.findAll('b')[1].text
+            content = stock + "當前股市價格為: " + getstock
+            if condition == '<':
+                content += "\n篩選條件為: < "+price
+            if float(getstock) < float(price):
+                content += "\n符合" + getstock +" < "+ price +"的篩選條件"
+                line_bot_api.push_message(userID,TextSendMessage(text=content))
+            elif condition == '>':
+                content += "\n篩選條件為: > "+price
+            if float(getstock) > float(price):
+                content += "\n符合" + getstock +" > "+ price +"的篩選條件"
+                line_bot_api.push_message(userID,TextSendMessage(text=content))
+            elif condition == '=':
+                content += "\n篩選條件為: = "+price
+            if float(getstock) == float(price):
+                content += "\n符合" + getstock +" = "+ price +"的篩選條件"
+                line_bot_api.push_message(userID,TextSendMessage(text=content))   
+        def job():
+            print('HH')
+            dataList =cache_users_stock()
+            for i in range(len(dataList)):
+                for k in range(len(dataList[i])):
+                    look_stock_price(dataList[i][k]['favorite_stock'], dataList[i][k]['condition'], dataList[i][k]['price'], dataList[i][k]['userID'])
+        schedule.every(30).esconds.do(job).tag('daily-tasks-stock'+uid, 'second')
 
-         ################################################
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+################################################
      if message_text =='@小幫手':
          Usage(event)
      if event.message.text =="@小幫手":
